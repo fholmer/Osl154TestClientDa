@@ -1,0 +1,5 @@
+OpenOPC-Python3x==1.3.1
+Pyro4==4.80
+pywin32==228; sys_platform == 'win32'
+Pillow==8.0.1
+pytest
