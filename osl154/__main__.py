@@ -18,6 +18,7 @@ def setup_list_servers(subparsers):
 def setup_rgb_on(subparsers):
     parser = subparsers.add_parser("rgb-on", help="Write 1.bmp to opc-server")
     parser.add_argument("name", type=str, default="SIGN", help="A short name for this sign")
+    parser.add_argument("-image", type=str, default="1.bmp", help="name of bmp image")
     parser.set_defaults(func=opcdata.rgb_on)
 
 def main():

@@ -92,4 +92,11 @@ sign.json can also be edited to adjust opc-tag names.
 
     if you run the ``create`` command again all changes will be overwritten.
 
-Now you can write the 1.bmp to your opc-server
+Send a rgb-on command to the sign:
+
+.. code-block:: doscon
+
+    > py -m osl154 rgb-on SIGN1 -image 1.bmp
+
+Image ``1.bmp`` will now be loaded in ``IMAGE_TOSET``. ``VALUE`` is set to 9999
+and after a short delay the ``COMMAND`` is set to ``RGB-ON``.

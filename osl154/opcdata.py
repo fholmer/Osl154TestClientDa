@@ -9,11 +9,11 @@ def list_servers():
     for s in opc.servers():
         print(f" - {s}")
 
-def rgb_on(name, bmp="1.bmp"):
+def rgb_on(name, image):
     root = pathlib.Path(".", "signs", name)
     data = json.load(root.joinpath("sign.json").open("r"))
 
-    bmp = root.joinpath(bmp).open(mode="br").read()
+    bmp = root.joinpath(image).open(mode="br").read()
 
     server = data["server"]
 
@@ -34,7 +34,7 @@ def rgb_on(name, bmp="1.bmp"):
     opc.write((command, 0))
     time.sleep(1)
 
-    print(f"set {value} to 9999 and {image_toset} to bmp-data from 1.bmp")
+    print(f"set {value} to 9999 and {image_toset} to bmp-data from {image}")
     opc.write([
         (value, 9999),
         (image_toset, bmp)
