@@ -1,13 +1,24 @@
 import sys
-from . import bmpdata
+from . import signdata, opcdata
 from argparse import ArgumentParser
 
 def setup_create(subparsers):
     parser = subparsers.add_parser("create", help="Create new sign")
-    parser.add_argument("tag", type=str, help="Opc tag name")
-    parser.add_argument("-width", "--width", type=int, default=64, help="pixel width")
-    parser.add_argument("-height", "--height", type=int, default=64, help="pixel height")
-    parser.set_defaults(func=bmpdata.create_bmp_data)
+    parser.add_argument("name", type=str, default="SIGN", help="A short name for this sign")
+    parser.add_argument("-server", required=True, type=str, help="name of opc-server")
+    parser.add_argument("-tag", required=True, type=str, help="Opc tag prefix")
+    parser.add_argument("-width", required=True, type=int, default=64, help="pixel width")
+    parser.add_argument("-height", required=True, type=int, default=64, help="pixel height")
+    parser.set_defaults(func=signdata.create_sign_data)
+
+def setup_list_servers(subparsers):
+    parser = subparsers.add_parser("list-servers", help="Print a list of available OPC servers")
+    parser.set_defaults(func=opcdata.list_servers)
+
+def setup_rgb_on(subparsers):
+    parser = subparsers.add_parser("rgb-on", help="Write 1.bmp to opc-server")
+    parser.add_argument("name", type=str, default="SIGN", help="A short name for this sign")
+    parser.set_defaults(func=opcdata.rgb_on)
 
 def main():
     global_parser = ArgumentParser(add_help=True)
@@ -16,7 +27,7 @@ def main():
         title="Commands", description="Additional help for commands: {command} --help"
     )
 
-    for setup in [setup_create]:
+    for setup in [setup_list_servers, setup_create, setup_rgb_on]:
         setup(subparsers)
 
     args = global_parser.parse_args()
