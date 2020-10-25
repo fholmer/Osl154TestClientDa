@@ -3,6 +3,12 @@ import pathlib
 import json
 from PIL import Image, ImageDraw
 
+def list_signs():
+    root = pathlib.Path(".", "signs")
+    print("Available signs:")
+    for d in root.iterdir():
+        print(f" * {d.name}")
+
 def create_sign_data(name, server, tag, width, height):
     root = pathlib.Path(".", "signs", name)
     root.mkdir(parents=True, exist_ok=True)

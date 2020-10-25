@@ -7,16 +7,33 @@ def list_servers():
     opc = OpenOPC.client()
     print("Available OPC-servers:")
     for s in opc.servers():
-        print(f" - {s}")
+        print(f" * {s}")
+
+def sign_read(name):
+    root = pathlib.Path(".", "signs", name)
+    data = json.load(root.joinpath("sign.json").open("r"))
+
+    server = data["server"]
+    command = data["tags"]["COMMAND"]
+    value = data["tags"]["VALUE"]
+
+    print(f"Connecting to {server}")
+
+    opc = OpenOPC.client()
+    opc.connect(server)
+    time.sleep(1)
+
+    print(f"read {command} and {value}")
+    res = opc.read([command, value])
+    print(f"result {repr(res)}")
 
 def rgb_on(name, image):
     root = pathlib.Path(".", "signs", name)
     data = json.load(root.joinpath("sign.json").open("r"))
 
-    bmp = root.joinpath(image).open(mode="br").read()
+    bmp = root.joinpath(image).read_bytes()[54:]
 
     server = data["server"]
-
     command = data["tags"]["COMMAND"]
     image_toset = data["tags"]["IMAGE_TOSET"]
     value = data["tags"]["VALUE"]
