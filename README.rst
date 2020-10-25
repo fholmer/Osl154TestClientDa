@@ -28,7 +28,6 @@ Installation
 #.  Install Python and OPC DA Auto Wrapper.
 
 #.  Open command line and create an empty folder:
-
     .. code-block:: doscon
 
         > mkdir C:\Project\Osl154TestClientDa
