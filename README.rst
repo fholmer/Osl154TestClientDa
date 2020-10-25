@@ -22,6 +22,7 @@ Software:
 
     Make sure you install the 64bit version of Python and register the 64-bit version of OPC DA Auto Wrapper
 
+
 Installation
 ------------
 
@@ -33,27 +34,13 @@ Installation
         > mkdir C:\Project\Osl154TestClientDa
         > cd C:\Project\Osl154TestClientDa
 
-#.  Clone or download content of https://github.com/fholmer/Osl154TestClientDa into current dir
-
-    .. code-block:: doscon
-
-        > gh repo clone fholmer/Osl154TestClientDa .
-
 #.  Create an virtual environment for python and install required packages using pip:
 
     .. code-block:: doscon
 
         > py -3 -m venv venv
         > venv\Scripts\activate
-        > pip install -r requirements.txt
-
-#.  (optional) Run tests
-
-    .. code-block:: doscon
-
-        > pytest -Wignore
-
-    Every test should pass if everything is good
+        > pip install https://github.com/fholmer/Osl154TestClientDa/archive/main.zip
 
 Usage
 -----
