@@ -21,16 +21,7 @@ Software:
 Installation
 ------------
 
-#.  Make sure you install the 32bit version of Python and
-    register the 32bit version of OPC DA Auto Wrapper
-
-    .. code-block:: doscon
-
-        # unzip graybox_opc_automation_wrapper.zip
-        > py -m zipfile -e graybox_opc_automation_wrapper.zip lib
-        # register as 32bit
-        > cd \lib\x86
-        > %systemroot%\SysWoW64\regsvr32.exe %cd%\gbda_aut.dll
+#.  Make sure you install the 32bit version of Python
 
 #.  Open command line and create an empty folder:
 
@@ -39,11 +30,20 @@ Installation
         > mkdir C:\Projects\Osl154Da
         > cd C:\Projects\Osl154Da
 
+#.  Register the 32bit version of OPC DA Auto Wrapper. 
+
+    .. code-block:: doscon
+
+        # unzip graybox_opc_automation_wrapper.zip
+        > py -m zipfile -e graybox_opc_automation_wrapper.zip lib
+        # register as 32bit
+        > %systemroot%\SysWoW64\regsvr32.exe %cd%\lib\x86\gbda_aut.dll
+
 #.  Create an virtual environment for python and install required packages using pip:
 
     .. code-block:: doscon
 
-        > py -3 -m venv venv
+        > py -3-32 -m venv venv
         > venv\Scripts\activate
         > pip install https://github.com/fholmer/Osl154TestClientDa/archive/main.zip
 
@@ -63,16 +63,16 @@ Create some initial bmp-data for your sign:
 
 .. code-block:: doscon
 
-    > py -m osl154da create SIGN1 -server SERVER.1 -tag SSA1_SIGN1 -width 304 -height 104
+    > py -m osl154da create sign1 -server SERVER.1 -tag SSA1_SIGN1 -width 304 -height 104
 
 .. note:: Make sure server, opctag, width and height match your server and sign
 
-This command will create a directory ``signs/SIGN1``:
+This command will create a directory ``signs/sign1``:
 
 .. code-block:: text
 
     /signs
-        /SIGN1
+        /sign1
             /sign.json
             /1.bmp
 
@@ -82,6 +82,12 @@ sign.json can also be edited to adjust opc-tag names.
 .. warning::
 
     if you run the ``create`` command again all changes will be overwritten.
+
+Read the values currently on the sign:
+
+.. code-block:: doscon
+
+    > py -m osl154ua read sign1
 
 Send a rgb-on command to the sign:
 
