@@ -1,7 +1,7 @@
 import argparse
 from unittest.mock import Mock, patch
 
-from osl154 import __main__
+from osl154da import __main__
 
 @patch("argparse.ArgumentParser.parse_args")
 def test_func_none(parse_args):

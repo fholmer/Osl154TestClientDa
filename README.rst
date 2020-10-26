@@ -36,8 +36,8 @@ Installation
 
     .. code-block:: doscon
 
-        > mkdir C:\Project\Osl154TestClientDa
-        > cd C:\Project\Osl154TestClientDa
+        > mkdir C:\Projects\Osl154Da
+        > cd C:\Projects\Osl154Da
 
 #.  Create an virtual environment for python and install required packages using pip:
 
@@ -54,7 +54,7 @@ First check that your opc-server is available by running this command:
 
 .. code-block:: doscon
 
-    > py -m osl154 list-servers
+    > py -m osl154da list-servers
 
 The name of your server should appear in this list. This is the name to be
 used in the next step.
@@ -63,7 +63,7 @@ Create some initial bmp-data for your sign:
 
 .. code-block:: doscon
 
-    > py -m osl154 create SIGN1 -server SERVER.1 -tag SSA1_SIGN1 -width 304 -height 104
+    > py -m osl154da create SIGN1 -server SERVER.1 -tag SSA1_SIGN1 -width 304 -height 104
 
 .. note:: Make sure server, opctag, width and height match your server and sign
 
@@ -87,7 +87,7 @@ Send a rgb-on command to the sign:
 
 .. code-block:: doscon
 
-    > py -m osl154 rgb-on SIGN1 -image 1.bmp
+    > py -m osl154da rgb-on SIGN1 -image 1.bmp
 
 Image ``1.bmp`` will now be loaded in ``IMAGE_TOSET``. ``VALUE`` is set to 9999
 and after a short delay the ``COMMAND`` is set to ``RGB-ON``.

@@ -2,8 +2,8 @@
 """A setuptools based setup module.
 
 Code style:
-    python -m isort -rc osl154 tests
-    python -m black osl154 tests
+    python -m isort -rc osl154da tests
+    python -m black osl154da tests
 
 Build wheel:
     python setup.py bdist_wheel
@@ -23,7 +23,7 @@ from os import path
 # Always prefer setuptools over distutils
 from setuptools import find_packages, setup
 
-from osl154 import __version__ as app_version
+from osl154da import __version__ as app_version
 
 here = path.abspath(path.dirname(__file__))
 
@@ -31,7 +31,7 @@ with open(path.join(here, "README.rst"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="osl154",
+    name="osl154da",
     version=app_version,
     description="Opc Da command line test client for Osl154 specification",
     long_description=long_description,
@@ -53,7 +53,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Operating System :: Microsoft :: Windows",
     ],
-    packages=find_packages(include=["osl154*"]),
+    packages=find_packages(include=["osl154da*"]),
     install_requires=[
         "OpenOPC-Python3x==1.3.1",
         "Pyro4==4.80",
@@ -62,7 +62,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'osl154da=osl154.__main__:main',
+            'osl154da=osl154da.__main__:main',
         ],
     },
 )

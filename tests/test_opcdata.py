@@ -1,4 +1,4 @@
-from osl154 import opcdata
+from osl154da import opcdata
 
 def test_list_servers(capfd):
     assert opcdata.list_servers() is None

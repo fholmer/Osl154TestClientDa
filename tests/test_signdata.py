@@ -1,4 +1,4 @@
-from osl154 import signdata
+from osl154da import signdata
 
 def test_list_servers(capfd):
     assert signdata.list_signs() is None
