@@ -87,7 +87,7 @@ Read the values currently on the sign:
 
 .. code-block:: doscon
 
-    > py -m osl154ua read sign1
+    > py -m osl154da read sign1
 
 Send a rgb-on command to the sign:
 
