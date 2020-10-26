@@ -15,18 +15,22 @@ OS:
 
 Software:
 
--   Python 3.7 or newer: https://www.python.org/downloads/windows
+-   Python 3.8 x86 (32-bit) or newer: https://www.python.org/downloads/windows
 -   Graybox Free OPC DA Auto Wrapper: http://gray-box.net/download_daawrapper.php?lang=en
-
-.. note::
-
-    Make sure you install the 64bit version of Python and register the 64-bit version of OPC DA Auto Wrapper
-
 
 Installation
 ------------
 
-#.  Install Python and OPC DA Auto Wrapper.
+#.  Make sure you install the 32bit version of Python and
+    register the 32bit version of OPC DA Auto Wrapper
+
+    .. code-block:: doscon
+
+        # unzip graybox_opc_automation_wrapper.zip
+        > py -m zipfile -e graybox_opc_automation_wrapper.zip lib
+        # register as 32bit
+        > cd \lib\x86
+        > %systemroot%\SysWoW64\regsvr32.exe %cd%\gbda_aut.dll
 
 #.  Open command line and create an empty folder:
 

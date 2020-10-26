@@ -35,7 +35,7 @@ setup(
     version=app_version,
     description="Opc Da command line test client for Osl154 specification",
     long_description=long_description,
-    keywords="osl154 project template",
+    keywords="osl154 specification test client",
     url="https://github.com/fholmer/Osl154TestClientDa",
     author="Frode Holmer",
     author_email="fholmer+osl154@gmail.com",
@@ -48,7 +48,6 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
@@ -63,7 +62,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'osl154=osl154.__main__:main',
+            'osl154da=osl154.__main__:main',
         ],
     },
 )
