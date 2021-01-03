@@ -30,15 +30,6 @@ Installation
         > mkdir C:\Projects\Osl154Da
         > cd /d C:\Projects\Osl154Da
 
-#.  Register the 32bit version of OPC DA Auto Wrapper. 
-
-    .. code-block:: doscon
-
-        # unzip graybox_opc_automation_wrapper.zip
-        > py -m zipfile -e graybox_opc_automation_wrapper.zip lib
-        # register as 32bit
-        > %systemroot%\SysWoW64\regsvr32.exe %cd%\lib\x86\gbda_aut.dll
-
 #.  Create an virtual environment for python and install required packages using pip:
 
     .. code-block:: doscon
@@ -46,6 +37,13 @@ Installation
         > py -3-32 -m venv venv
         > venv\Scripts\activate
         > pip install https://github.com/fholmer/Osl154TestClientDa/archive/main.zip
+
+#.  Register the 32bit version of OPC DA Auto Wrapper. 
+
+    .. code-block:: doscon
+
+        # register as 32bit
+        > %systemroot%\SysWoW64\regsvr32.exe %cd%\lib\x86\gbda_aut.dll
 
 Usage
 -----
@@ -69,9 +67,8 @@ Or add it manually:
 
 .. code-block:: doscon
 
-    > osl154da create sign1 -server SERVER.1 -tag SSA1_SIGN1 -width 304 -height 104
-
-.. note:: Make sure server, opctag, width and height match your server and sign
+    # NB! Make sure server, tag, width and height match your server and sign
+    > osl154da add-sign sign1 -server SERVER.1 -tag SSA1_SIGN1 -width 304 -height 104
 
 This command will create a directory ``signs/default``:
 
@@ -88,10 +85,8 @@ This command will create a directory ``signs/default``:
 BMP-file can be duplicated and edited to make different test images.
 ``sign.json`` can also be edited to adjust opc-tag names.
 
-.. warning::
-
-    if you run the ``add-sign`` or ``discover-sign`` command again all
-    changes will be overwritten.
+NB! If you run the ``add-sign`` or ``discover-sign`` command again all
+changes will be overwritten.
 
 Read the values currently on the sign:
 
