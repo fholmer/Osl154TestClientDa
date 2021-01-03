@@ -5,6 +5,7 @@ import time
 import copyreg
 import pywintypes
 from PIL import Image
+from . import utils
 
 pywintypes.datetime = pywintypes.TimeType
 copyreg.pickle(memoryview, lambda x: (memoryview, (x.tobytes(),)))
@@ -14,14 +15,71 @@ def raw_to_img(width, height, rawbytes):
     im = Image.frombytes("RGB",(width, height),im.convert("BGR;24").tobytes())
     return im
 
+def make_tag_dict(nodeids):
+    return {nodeid.upper().rsplit(".", 1)[-1]: nodeid for nodeid in nodeids}
+
+def _safe_bool(boolstr):
+    _bool = boolstr.lower()
+    if _bool in ("1", "on", "t", "true", "yes", "y") or _bool.startswith("true"):
+        return True
+    return False
+
 def list_servers():
     opc = OpenOPC.client()
     print("Available OPC-servers:")
     for s in opc.servers():
         print(f" * {s}")
 
+def discover_sign_data(server, add_tag, name):
+    interactive = True
+
+    client = OpenOPC.client()
+    client.connect(server)
+
+    tag_list = client.list(paths='*', recursive=True, flat=True)
+
+    client.remove(client.groups())
+    client.close()
+
+    add_tags = []
+    if add_tag and name:
+        add_tags.append((add_tag, name))
+    else:
+        prefix_end = len(".image_onsign")
+        matches = [tag for tag in tag_list if tag.lower().endswith(".image_onsign")]
+        if not matches:
+            print("No sign detected. Expected tag structure: **.IMAGE_ONSIGN")
+            return
+        for match in matches:
+            tag = match[:-prefix_end]
+            print(f"Found sign prefix: {tag}")
+            if interactive:
+                if _safe_bool(input(f"Add {tag}? (y/[n]): ")):
+                    short_name = input(f"Use short name: [{name}]: ")
+                    if not short_name:
+                        short_name = name
+                    add_tags.append((tag, short_name))
+            else:
+                print(f"Add using arguments: discover-sign {server} -add-tag {tag} -name default")
+                print("")
+    if not add_tags:
+        return
+
+    client.connect(server)
+    for tag, name in add_tags:
+        matches = [opctag for opctag in tag_list if opctag.startswith(tag)]
+        tags = make_tag_dict(matches)
+        pixelwidth = client.read(tags["PIXELWIDTH"])
+        pixelheight = client.read(tags["PIXELHEIGHT"])
+        width = pixelwidth[0]
+        height = pixelheight[0]
+        utils.create_sign_data(name, server, tag, width, height, tags)
+        print(f"Added {tag} as {name}.")
+    client.remove(client.groups())
+    client.close()
+
 def sign_read(name):
-    root = pathlib.Path(".", "signs", name)
+    root = utils.get_sign_path(name)
     data = json.load(root.joinpath("sign.json").open("r"))
 
     server = data["server"]
